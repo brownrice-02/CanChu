@@ -1,0 +1,88 @@
+.personalInfo {
+    background: #ffffff;
+    width: 100%;
+    padding: 2.5vw 4.5% 0px 4.5%;
+
+    .info {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        border: 1px;
+
+        .avatarContainer {
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            width: 8.5rem;
+            height: 8.5rem;
+            font-family: "Outfit";
+            font-style: normal;
+            font-weight: 700;
+
+            @media (max-width: 768px) {
+                width: 5rem;
+                height: 5rem;
+            }
+        }
+        .userName {
+            margin-top: 1.8vw;
+            margin-left: 3%;
+            margin-bottom: 1.8vw;
+            font-size: 2.5rem;
+            color: #000000;
+            line-height: 1.2;
+
+            @media (max-width: 768px) {
+                font-size: 1.5rem;
+            }
+
+
+            .userFriendCount {
+                margin-top: 0.5rem;
+                font-weight: 500;
+                font-size: 1.25rem;
+                color: #484848;
+
+                @media (max-width: 768px) {
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+  }
+  .separator {
+    border-top: 1px solid #c8c8c8;
+    margin-top: 5vw;
+    align-items: center;
+
+    .postBox {
+        display: flex;
+        flex-direction: column;
+        width: 10%;
+        height: 15%;
+        padding-top: 0.5%;
+        align-items: center;
+
+        .postText {
+            font-size: 1.25rem;
+            color: #5458f7;
+
+            @media (max-width: 768px) and (min-width: 361px) {
+                font-size: 1rem;
+            }
+            @media (max-width: 360px) {
+                font-size: 0.8rem;
+            }
+        }
+
+        .postSeparator {
+            width: 100%;
+            height: 0.5vw;
+            background: #5458f7;
+        }
+    }
+}
+  
+  
+  
+  

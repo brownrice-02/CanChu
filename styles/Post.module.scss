@@ -1,0 +1,411 @@
+.container {
+  display: flex;
+  width: 100%;
+  min-height: 32vw;
+  flex-direction: column;
+  border: 1px solid #d3d3d38f;
+  border-radius: 2vw;
+  background: #FFFFFF;
+  // gap: 2%;
+
+  .editButtonContainer {
+    position: absolute;
+    margin-top: 10px;
+    left: 87vw;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .post {
+    display: flex;
+    width: 100%;
+    // min-height: 15.1vw;
+    flex-shrink: 0;
+    flex-direction: column;
+    padding: 2vw 3vw 2vw 3vw;
+
+    @media (max-width: 768px) {
+      padding: 2vw 2vw 2vw 2vw;
+  }
+
+    .info {
+      display: flex;
+      width: 100%;
+      height: 7.7vw;
+      flex-shrink: 0;
+      border: 1px;
+
+      @media (max-width: 768px) {
+        height: 3rem;
+      }
+
+      .userpic {
+        position: relative;
+        overflow: hidden;
+        width: 7vw;
+        height: 7vw;
+
+        @media (max-width: 768px) {
+            width: 3rem;
+            height: 3rem;
+        }
+    }
+
+      .friend {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 1.2vw;
+        height: 100%;
+        width: 50%;
+        flex-shrink: 0;
+
+        font-family: "Outfit";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1.125rem;
+        line-height: 2.4vw;
+        color: #000000;
+      }
+
+      .timeAgo {
+        // width: 6.3vw;
+        // height: 2.6vw;
+        flex-shrink: 0;
+        width: 100%;
+
+        font-family: "Outfit";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 0.8rem;
+        line-height: 2.4vw;
+        color: #919191;
+
+        @media (max-width: 768px) {
+          margin-top: 0.4rem;
+        }
+      }
+    }
+
+    .postContent {
+      // width: 40.9vw;
+      min-height: 3rem;
+      white-space: pre-line;
+      flex-shrink: 0;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+
+      font-family: "Outfit";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 1rem;
+      // line-height: 2.4vw;
+      color: #000000;
+
+      @media (max-width: 768px) {
+        min-height: 1.2rem;
+      }
+    }
+
+    .postEditContentBox {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1.5vw;
+      gap: 1rem;
+
+      .postEditContent{
+        width: 100%;
+        min-height: 10vw;
+        padding-left: 1rem;
+        padding-top: 0.5rem;
+        border-radius: 10px;
+        border: 1px solid #BFBFBF;
+        background: #F0F2F5;
+        outline: none;
+      }
+      .buttonBox {
+        display: flex;
+        width: 100%;
+        justify-content: flex-start;
+        gap: 1rem;
+
+        button{
+            color:#FFFFFF;
+            width: 15%;
+            height: 2rem;
+            border-radius: 6px;
+        }
+
+        .confirmBtn {
+            background: #5458F7;
+        }
+
+        .cancelBtn {
+            background: #D3D3D3;
+        }
+      }
+    }
+  }
+
+  .interactions {
+    display: flex;
+    margin-left: 2.7vw;
+    margin-right: 2.7vw;
+    height: 5vw;
+    flex-shrink: 0;
+    flex-direction: column;
+    justify-content: center;
+
+    @media (max-width: 768px) {
+      height: 2rem;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: row;
+      height: 4vw;
+      border-top: 1px solid #bfbfbf;
+      border-bottom: 1px solid #bfbfbf;
+      align-items: center;
+
+      @media (max-width: 768px) {
+        height: 2rem;
+      }
+
+      .likeBtn {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        border: 0;
+        margin-left: 0.35vw;
+        flex-shrink: 0;
+        // background: #f85c53;
+        // border-radius: 50%;
+        z-index: 2;
+        cursor: pointer;
+
+        @media (max-width: 768px) {
+          width: 25px;
+          height: 25px;
+        }
+
+        .unliked{
+          position: relative;
+          margin-top: 0.1rem;
+          margin-left: 0.1rem;
+          width: 27px;
+          height: 24px;
+
+          @media (max-width: 768px) {
+            width: 22.5px;
+            height: 20px;
+          }
+        }
+      }
+
+      .shareBtn {
+        position: relative;
+        width: 30px;
+        height: 22px;
+        border: 0;
+        margin-left: 1vw;
+        flex-shrink: 0;
+        z-index: 2;
+        cursor: pointer;
+
+        @media (max-width: 768px) {
+          width: 25px;
+          height: 18.3px;
+        }
+      }
+    }
+  }
+
+  .likeAndShare {
+    display: flex;
+    padding-left: 3.5vw;
+    padding-right: 3.5vw;
+    justify-content: space-between;
+    border: 0.1vw;
+    height: 4vw;
+    flex-shrink: 0;
+    border: 0.1vw solid #d9d9d9;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      height: 2rem;
+    }
+
+    p {
+      font-family: Roboto;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 2.4vw;
+      color: #5C5C5C;
+
+      @media (max-width: 768px) {
+        font-size: 0.8rem;
+      }
+    }
+
+    .likeCount {
+      flex-shrink: 0;
+      text-align: left;
+    }
+
+    .commentCount {
+      flex-shrink: 0;
+      text-align: right;
+    }
+  }
+
+  .commentsFromFriends {
+    display: flex;
+    flex-direction: column;
+    padding: 2vw 3.5vw 0 3.5vw;
+    gap: 20px;
+
+    .cmt {
+      display: flex;
+      // height: 10vw;
+      gap: 1vw;
+      
+
+      .friendPicture {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .friendCmtBox {
+        p {
+          font-family: Roboto;
+          font-size: 0.8rem;
+          font-weight: 400;
+          text-align: left;
+          color: #525252;
+        }
+
+        .friendCmt {
+          display: flex;
+          flex-direction: column;
+          gap: 0.3rem;
+          height: 4.5rem;
+          background: #D9D9D952;
+          border-radius: 20px;
+          padding: 8px 12px 2px 15px;
+
+        .friendCmtName {
+          font-family: Roboto;
+          font-size: 1rem;
+          font-weight: 600;
+          text-align: left;
+          color: #525252;
+        }
+
+        p {
+          font-family: Roboto;
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 24px;
+          letter-spacing: 0em;
+          text-align: left;
+          color: #525252;
+        }
+      }
+      }
+    }
+  }
+
+  .comments {
+    display: flex;
+    height: 5vw;
+    margin-top: 1vw;
+    margin-bottom: 2vw;
+    padding: 1.5vw 3.5vw 1.5vw 3.5vw;
+    border: 0.1vw;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      height: 2rem;
+    }
+
+    .commentsProfile {
+      position: relative;
+    }
+
+    .messageContainer {
+      display: flex;
+      justify-content: space-between;
+      margin-left: 1.4vw;
+      padding-left: 4%;
+      padding-right: 2%;
+      width: 90%;
+      height: 5vw;
+      border-radius: 10px;
+      background-color: #F0F2F5;
+      border: 1px solid #D9D9D9;
+      align-items: center;
+
+      @media (max-width: 768px) {
+        height: 1.5rem;
+      }
+
+      a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+
+      input {
+        flex-grow: 1; 
+        height: 40px;
+        background-color: #F0F2F5;
+        padding: 0; /* Optional */
+        line-height: 1; 
+
+        @media (max-width: 768px) {
+          height: 1rem;
+        }
+      }
+
+      input::placeholder {
+        color: #777777;
+        font-family: Roboto;
+        font-size: 20px;
+        font-weight: 400;
+        text-align: left;
+
+        @media (max-width: 768px) {
+          font-size: 1rem;
+        }
+      }
+
+      input:focus {
+        outline: none;
+      }        
+    
+      button {
+        background-image: url('/send.svg');
+        background-repeat: no-repeat;
+        background-position: right 4% center;
+        width: 25px;
+        height: 25px;
+      }
+    }
+
+    .messageContainer p {
+      font-family: Roboto;
+      font-size: 1.25rem;
+      font-weight: 400;
+      line-height: 2.4vw;
+      letter-spacing: 0em;
+      text-align: center;
+      color: #777777;
+      margin-left: 2vw;
+    }
+  }
+}

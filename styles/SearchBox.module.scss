@@ -1,0 +1,73 @@
+.searchBoxAb {
+    position: relative;
+
+    .searchInputStyle {
+        padding: 3%;
+        padding-left: 17%;
+        background: #f0f2f5;
+        background-image: url("/search.svg");
+        background-repeat: no-repeat;
+        background-position: left 5% center;
+        background-size: 8%;
+        border: 1px solid #d9d9d9;
+        border-radius: 10px;
+        outline: none;
+        width: 20rem;
+
+        font-family: Outfit;
+        font-size: 15px;
+        font-weight: 500;
+        text-align: left;
+        color: #566470;
+
+        @media (max-width: 640px) and (min-width: 451px) {
+            width: 15rem;
+        }
+        @media (max-width: 450px) {
+            width: 8rem;
+        }
+    }
+    .friendListContainer {
+        z-index: 1;
+        position: absolute; 
+        left:1vw;
+        width: 20vw;
+        max-height: 14rem;
+        border: 1px solid #d9d9d9;
+        border-radius: 20px;
+        overflow-y: hidden;
+
+        .friendList {
+            position: relative; 
+            width: 20vw;
+            max-height: 14rem;
+            background: white;
+            overflow: auto; 
+    
+            .friendItem {
+                display: flex;
+                align-items: center;
+                padding-left: 10%;
+                gap: 6%;
+                border-bottom: 1px solid #d9d9d9;
+                height: 3.5rem;
+    
+                .friendPicture {
+                    position: relative;
+                    width: 2.5vw;
+                    height: 2.5vw;
+                }
+    
+                .friendName {
+                    font-family: Outfit;
+                    font-size: 15px;
+                    font-weight: 500;
+                    line-height: 24px;
+                    letter-spacing: 0em;
+                    text-align: left;
+                    color: #566470;
+                }
+            }
+        }
+    }
+}  

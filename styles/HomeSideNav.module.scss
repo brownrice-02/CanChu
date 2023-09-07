@@ -1,0 +1,116 @@
+.sideNavContainer {
+    display: flex;
+    align-items: flex-start;
+    font-family: Pattaya;
+    flex-direction: column;
+    padding: 0 5% 0 5%;
+    border: 1px solid #0000001A;
+    border-radius: 20px;
+    background: #ffffff;
+  }
+  
+  .navItem {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+    gap: 14px;
+    font-family: Outfit;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .viewAll {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+    gap: 14px;
+    font-family: Outfit;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  
+  .avatarContainer {
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    width: 42px;
+    height: 42px;
+  }
+  
+  .myFriendIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .myFriendLink {
+    color: #767676;
+  }
+  
+  .friendList {
+    display: flex;
+    border-top: 1px solid #d9d9d9;
+    width: 100%;
+    // min-height: 14rem;
+  }
+  
+  .pendingBtn{
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+
+    button {
+        width: 45%;
+        height: 40px;
+        border-radius: 6px;
+        font-family: Outfit;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0em;
+        text-align: center;
+        color: #ffffff;
+    }
+    .confirmButton {
+        background: #5458f7;
+    }
+
+    .cancelButton {
+        background: #bfbfbf;
+    }
+  }
+  
+  
+  
+  .viewAllIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .viewAllLink {
+    font-weight: 500;
+    text-decoration: underline;
+  }
+  
+  .copyRight {
+    display: flex;
+    width: 100%;
+    padding: 0 5% 0 5%;
+    justify-content: center;
+  }
+  
+  .copyRightContent {
+    font-family: "Helvetica Neue";
+    font-size: 1rem;
+    font-weight: 400;
+    color: #525252;
+
+    @media (max-width: 768px) {
+      font-size: 0rem;
+    }
+  }
+  
