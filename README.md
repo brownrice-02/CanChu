@@ -15,4 +15,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Signup Page | Home Page | Profile Page
 :-------------------------:|:-------------------------:|:----------------:
-![image](https://github.com/brownrice-02/CanChu/assignment/login.png) | ![image](https://github.com/brownrice-02/CanChu/assignment/home.png) | ![image](https://github.com/brownrice-02/CanChu/assignment/personal.png)
+![image](assignment/login.png) | ![image](assignment/home.png) | ![image](assignment/personal.png)
