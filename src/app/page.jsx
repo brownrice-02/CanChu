@@ -13,19 +13,21 @@ import TopNav from "../../components/NavCmps/TopNav";
 import HomeSideNav from "../../components/NavCmps/HomeSideNav";
 import CreatePost from "../../components/PostCmps/CreatePost";
 import Post from "../../components/PostCmps/Post";
+import { useSelector } from "react-redux";
 
 export default function HomePage() {
   const { user_id, access_token } = usePageAuthorization();
-  const { profile, isLoading: profilesIsLoading } = useProfile(
-    access_token,
-    user_id
-  );
-  const {
-    posts,
-    updatePosts,
-    next_cursor,
-    isLoading: postsIsLoading,
-  } = usePosts(access_token); // 取得貼文
+  useProfile(access_token, user_id);
+  // 使用 useSelector 從 Redux 中獲取個人資料
+  const profileData = useSelector((state) => state.profile.profile);
+  // console.log("Redux 出 profile: ", profileData);
+
+  // 取得貼文
+  usePosts(access_token);
+  const postsData = useSelector((state) => state.posts.posts);
+  const next_cursor = useSelector((state) => state.posts.next_cursor);
+  const { updatePosts, isLoading: postsIsLoading } = usePosts(access_token);
+
   const { handlePostCreated } = usePostCreation(access_token, updatePosts); // 創建貼文
   const [friendList, setfriendList] = useState(null);
   const [pendingList, setPendingList] = useState(null);
@@ -128,37 +130,26 @@ export default function HomePage() {
     <main className={styles.container}>
       {/* <h1 className="text-3xl font-bold underline">Hello, Next.js!</h1> // try Tailwind */}
       <div className={styles.topNav}>
-        {profilesIsLoading ? <TopNav /> : <TopNav userdata={profile} />}
+        <TopNav />
       </div>
       <div className={styles.main}>
         <div className={styles.sideNav}>
-          {profilesIsLoading ? (
-            <HomeSideNav />
+          {pendingList ? (
+            pendingList && (
+              <HomeSideNav
+                friendList={friendList}
+                pendingList={pendingList}
+                handleGetFriendList={handleGetFriendList}
+                handleGetPendingList={handleGetPendingList}
+              />
+            )
           ) : (
-            <>
-              {pendingList ? (
-                pendingList && (
-                  <HomeSideNav
-                    userdata={profile}
-                    friendList={friendList}
-                    pendingList={pendingList}
-                    handleGetFriendList={handleGetFriendList}
-                    handleGetPendingList={handleGetPendingList}
-                  />
-                )
-              ) : (
-                <HomeSideNav friendList={friendList} />
-              )}
-            </>
+            <HomeSideNav friendList={friendList} />
           )}
         </div>
         <div className={styles.postFlow}>
           <></>
-          {profilesIsLoading ? (
-            <CreatePost />
-          ) : (
-            <CreatePost userdata={profile} onPostCreated={handlePostCreated} />
-          )}
+          <CreatePost onPostCreated={handlePostCreated} />
           {postsIsLoading ? (
             // <div>Loading...</div>
             <div
@@ -170,12 +161,12 @@ export default function HomePage() {
               }}
             >
               {/* 添加此段來處理取得下一組貼文時，能維持原本貼文 */}
-              {posts &&
-                posts.map((post) => (
+              {postsData &&
+                postsData.map((post) => (
                   <Post
                     key={post.id}
                     postdata={post}
-                    userdata={profile}
+                    userdata={profileData}
                     condition={false}
                     edit={false}
                     onLikeButtonClick={handleLikeButtonClick}
@@ -193,11 +184,11 @@ export default function HomePage() {
               <Post />
             </div>
           ) : (
-            posts.map((post) => (
+            postsData.map((post) => (
               <Post
                 key={post.id}
                 postdata={post}
-                userdata={profile}
+                userdata={profileData}
                 condition={false}
                 edit={false}
                 onLikeButtonClick={handleLikeButtonClick}

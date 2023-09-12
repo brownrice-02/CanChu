@@ -1,11 +1,13 @@
-// usePosts.js
 import { useState, useEffect } from "react";
 import axiosInstance from "../../src/app/api/axiosInstance";
+import { useDispatch } from 'react-redux';
+import { setPostsData } from '../../src/redux/store/postsSlice';
 
 const usePosts = (access_token, user_id = null) => {
   const [posts, setPosts] = useState([]);
   const [next_cursor, setNext_cursor] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
 
   const updatePosts = async (cursor) => {
     if (cursor === null) return;
@@ -13,21 +15,20 @@ const usePosts = (access_token, user_id = null) => {
     axiosInstance.defaults.headers.common["Authorization"] = access_token;
     let url = user_id ? `/posts/search?user_id=${user_id}` : "/posts/search";
     if (cursor) {
-      url +=user_id ? `&cursor=${cursor}` : `?cursor=${cursor}`;
+      url += user_id ? `&cursor=${cursor}` : `?cursor=${cursor}`;
     }
 
     try {
       const get_response = await axiosInstance.get(url);
       if (get_response.status === 200) {
+        const nextCursorData = get_response.data.data.next_cursor;
+        setNext_cursor(nextCursorData);
         if (cursor) {
-          // 如果有指定 cursor，表示要加載下一組貼文，將新貼文附加到原有貼文列表後面
-          setPosts((prevPosts) => [...prevPosts, ...get_response.data.data.posts]);
-          setNext_cursor(get_response.data.data.next_cursor);
-          // console.log(get_response.data.data.next_cursor)
+          const newPosts = get_response.data.data.posts;
+          setPosts((prevPosts) => [...prevPosts, ...newPosts]);
         } else {
-          // console.log("GET Post成功");
-          setPosts(get_response.data.data.posts);
-          setNext_cursor(get_response.data.data.next_cursor);
+          const postsData = get_response.data.data.posts;
+          setPosts(postsData);
         }
       }
     } catch (get_error) {
@@ -42,6 +43,11 @@ const usePosts = (access_token, user_id = null) => {
   useEffect(() => {
     updatePosts();
   }, []);
+
+  // 監聽 posts 的變化，一旦變化觸發 dispatch
+  useEffect(() => {
+    dispatch(setPostsData({ posts, next_cursor }));
+  }, [posts, next_cursor, dispatch]);
 
   return { posts, updatePosts, next_cursor, isLoading };
 };

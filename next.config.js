@@ -16,7 +16,7 @@ module.exports = {
         },
         {
           protocol: 'https',
-          hostname: 'vicky-canchu-api.octave.vip',
+          hostname: '13.211.10.154',
           port: '',
           pathname: '/**',
         },
@@ -31,7 +31,7 @@ module.exports = {
       ],
     },
     env: {
-      NEXT_PUBLIC_API_URL: 'https://vicky-canchu-api.octave.vip/api/1.0',
+      NEXT_PUBLIC_API_URL: 'https://13.211.10.154/api/1.0',
     },
 
     // Next.js Redirects for user authentication
