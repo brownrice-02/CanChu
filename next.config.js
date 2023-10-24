@@ -20,6 +20,12 @@ module.exports = {
           port: '',
           pathname: '/**',
         },
+        {
+          protocol: 'https',
+          hostname: '52.65.80.187',
+          port: '',
+          pathname: '/**',
+        },
       ],
     },
     babel: {
@@ -31,7 +37,7 @@ module.exports = {
       ],
     },
     env: {
-      NEXT_PUBLIC_API_URL: 'https://13.211.10.154/api/1.0',
+      NEXT_PUBLIC_API_URL: 'http://3.219.184.226:3000/api/1.0',
     },
 
     // Next.js Redirects for user authentication

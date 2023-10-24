@@ -74,12 +74,20 @@ const Post = ({
           {/* <div className={styles.profilePicture}> */}
           <div className={styles.userpic}>
             {postdata ? (
-              <AvatarBtn
-                // src = 'https://i.imgur.com/5NAGJfl.png' //test
-                src={postdata.picture}
-                alt="your picture"
-                link={`/users/${postdata.user_id}`}
-              />
+              postdata.picture ? (
+                <AvatarBtn
+                  // src = 'https://i.imgur.com/5NAGJfl.png' //test
+                  src={postdata.picture}
+                  alt="your picture"
+                  link={`/users/${postdata.user_id}`}
+                />
+              ) : (
+                <AvatarBtn
+                  src="avatar.svg"
+                  alt="your picture"
+                  link={`/users/${postdata.user_id}`}
+                />
+              )
             ) : (
               <Skeleton
                 variant="circle"
@@ -222,7 +230,15 @@ const Post = ({
           }}
         >
           {userdata ? (
-            <AvatarBtn src={userdata.picture} alt="your picture" link="/" />
+            userdata.picture ? (
+              <AvatarBtn src={userdata.picture} alt="your picture" link="/" />
+            ) : (
+              <AvatarBtn
+                src="avatar.svg"
+                alt="your picture"
+                link={`/users/${userdata.id}`}
+              />
+            )
           ) : (
             <Skeleton
               variant="circle"

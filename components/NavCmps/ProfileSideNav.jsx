@@ -4,15 +4,16 @@ import usePageAuthorization from "../../components/AuthCmps/usePageAuthorization
 import axiosInstance from "../../src/app/api/axiosInstance";
 import styles from "../../styles/ProfileSideNav.module.scss";
 import { Skeleton } from "@material-ui/lab";
+import { useSelector } from "react-redux";
 
 const ProfileSideNav = ({
-  userdata,
   onProfileUpdated,
   isYourPage,
   friendship,
   handleGetProfile,
   // a
 }) => {
+  const userdata = useSelector((state) => state.profile.profile);
   const { access_token } = usePageAuthorization();
   const [isLoginMode, setLoginMode] = useState(true); // true 為一般模式，這是指編輯貼文的，抱歉我之後會改名
   const [introduction, setIntroduction] = useState("");
@@ -147,7 +148,11 @@ const ProfileSideNav = ({
             <div className={styles.introduction}>
               <h3>自我介紹</h3>
               {userdata ? (
-                <p>{userdata.introduction}</p>
+                userdata.introduction ? (
+                  <p>{userdata.introduction}</p>
+                ) : (
+                  <p>目前還沒有介紹呦～</p>
+                )
               ) : (
                 <Skeleton variant="text" width="100%" />
               )}
@@ -155,7 +160,11 @@ const ProfileSideNav = ({
             <div className={styles.hobby}>
               <h3>興趣</h3>
               {userdata ? (
-                <p>{userdata.tags}</p>
+                userdata.tags ? (
+                  <p>{userdata.tags}</p>
+                ) : (
+                  <p>目前還沒有介紹呦～</p>
+                )
               ) : (
                 <Skeleton variant="text" width="100%" />
               )}

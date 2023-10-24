@@ -1,11 +1,13 @@
 import { useState } from "react";
-import Link from "next/link";
 import AvatarBtn from "../components/BtnCmps/AvatarBtn";
 import AvatarBtnwithHover from "./BtnCmps/AvatarBtnwithHover";
 import { Skeleton } from "@material-ui/lab";
 import styles from "../styles/PersonalInfo.module.scss";
+import { useSelector } from "react-redux";
 
-const PersonalInfo = ({ userdata, handleImageUpload, isYourPage }) => {
+const PersonalInfo = ({ handleImageUpload, isYourPage }) => {
+  const userdata = useSelector((state) => state.profile.profile);
+  console.log("PersonalInfo", isYourPage);
   return (
     <div className={styles.personalInfo}>
       <div className={styles.info}>
@@ -52,7 +54,7 @@ const PersonalInfo = ({ userdata, handleImageUpload, isYourPage }) => {
 
           <div className={styles.userFriendCount}>
             {userdata ? (
-              <Link href="/">{userdata.friend_count}位朋友</Link>
+              userdata.friend_count + "位朋友"
             ) : (
               <Skeleton variant="text" width={80} />
             )}

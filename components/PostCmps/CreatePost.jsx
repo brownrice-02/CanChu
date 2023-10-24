@@ -3,8 +3,11 @@ import { useState } from "react";
 import AvatarBtn from "../BtnCmps/AvatarBtn";
 import styles from "../../styles/CreatePost.module.scss";
 import { Skeleton } from "@material-ui/lab";
+import { useSelector } from "react-redux";
 
-const CreatePost = ({ userdata, onPostCreated }) => {
+const CreatePost = ({ onPostCreated }) => {
+  const userdata = useSelector((state) => state.profile);
+
   const [context, setContext] = useState("");
 
   const handleFormSubmit = (e) => {

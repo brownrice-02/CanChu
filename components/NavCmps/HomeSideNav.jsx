@@ -6,15 +6,17 @@ import AvatarBtn from "../BtnCmps/AvatarBtn";
 import Image from "next/image";
 import styles from "../../styles/HomeSideNav.module.scss";
 import { Skeleton } from "@material-ui/lab";
+import { useSelector } from "react-redux";
 
 export default function HomeSideNav({
-  userdata,
   friendList,
   pendingList,
   handleGetFriendList,
   handleGetPendingList,
 }) {
   const { access_token } = usePageAuthorization();
+  const userdata = useSelector((state) => state.profile.profile);
+  console.log(userdata);
 
   // 確認好友邀請
   const handleFriendRequestAgree = (pendingId) => {

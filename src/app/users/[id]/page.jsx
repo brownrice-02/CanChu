@@ -143,11 +143,11 @@ export default function PersonalProfilePage({ params }) {
       <div className={styles.TopNav}>
         {userProfilesIsLoading ? <TopNav /> : <TopNav userdata={userprofile} />}
         <div>
-          {!profile ? (
+          {!userprofile ? (
             <PersonalInfo />
           ) : (
             <PersonalInfo
-              userdata={profile}
+              userdata={userprofile}
               handleImageUpload={handleImageUpload}
               isYourPage={isYourPage}
             />
