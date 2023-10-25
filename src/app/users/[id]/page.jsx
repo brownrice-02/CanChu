@@ -15,33 +15,41 @@ import ProfileSideNav from "../../../../components/NavCmps/ProfileSideNav";
 import PersonalInfo from "../../../../components/PersonalInfo";
 import CreatePost from "../../../../components/PostCmps/CreatePost";
 import Post from "../../../../components/PostCmps/Post";
+import { useSelector } from "react-redux";
 
 export default function PersonalProfilePage({ params }) {
   const { user_id, access_token } = usePageAuthorization();
-  const id = params.id;
-  const { profile: userprofile, isLoading: userProfilesIsLoading } = useProfile(
-    access_token,
-    user_id
-  ); // 取得使用者的個人資訊
-  const { profile, friendship, handleGetProfile } = useProfile(
-    access_token,
-    id
-  ); // 取得對應 id 的個人資訊
+  const current_user_id = params.id;
+
+  // Profile
+  // 取得使用者的個人資訊
+  useProfile(access_token, user_id);
+  const userProfile = useSelector((state) => state.profile.profile);
+  // const { profile, friendship, handleGetProfile } = useProfile(
+  //   access_token,
+  //   current_user_id
+  // );
+  // 取得對應 id 的個人資訊
+  useProfile(access_token, current_user_id);
+  const { handleGetProfile } = useProfile(access_token, current_user_id);
+  const currentUserProfile = useSelector((state) => state.profile.profile);
+
+  // Post
   const {
     posts,
     updatePosts,
     next_cursor,
     isLoading: postsIsLoading,
-  } = usePosts(access_token, id); // 取得貼文
+  } = usePosts(access_token, current_user_id); // 取得貼文
   const { handlePostCreated } = usePostCreation(access_token, updatePosts); // 自己頁面能創建貼文
   const { handleEditPost } = useEditPost(access_token, updatePosts); // 編輯貼文
   const [isYourPage, setIsYourPage] = useState(false);
 
   useEffect(() => {
-    if (id) {
-      setIsYourPage(user_id === id); // 解決 id 一開始會是 undefined
+    if (current_user_id) {
+      setIsYourPage(user_id === current_user_id); // 解決 id 一開始會是 undefined
     }
-  }, [id, user_id]);
+  }, [current_user_id, user_id]);
 
   // 用戶的 profile 更新 API
   const handleUpdateProfile = (UpdatedProfileData) => {
@@ -141,13 +149,13 @@ export default function PersonalProfilePage({ params }) {
   return (
     <main className={styles.container}>
       <div className={styles.TopNav}>
-        {userProfilesIsLoading ? <TopNav /> : <TopNav userdata={userprofile} />}
+        {userProfile ? <TopNav /> : <TopNav userdata={userProfile} />}
         <div>
-          {!userprofile ? (
+          {!userProfile ? (
             <PersonalInfo />
           ) : (
             <PersonalInfo
-              userdata={userprofile}
+              userdata={userProfile}
               handleImageUpload={handleImageUpload}
               isYourPage={isYourPage}
             />
@@ -163,15 +171,15 @@ export default function PersonalProfilePage({ params }) {
               alignItems: "center",
             }}
           >
-            {/* id */}
-            {!profile ? (
+            {/* current_user_id */}
+            {!currentUserProfile ? (
               <ProfileSideNav />
             ) : (
               <ProfileSideNav
-                userdata={profile}
+                userdata={currentUserProfile}
                 onProfileUpdated={handleUpdateProfile}
                 isYourPage={isYourPage}
-                friendship={friendship}
+                friendship={currentUserProfile.friendship}
                 handleGetProfile={handleGetProfile}
               />
             )}
@@ -179,7 +187,10 @@ export default function PersonalProfilePage({ params }) {
         </div>
         <div className={styles.postFlow}>
           <div>
-            <CreatePost userdata={profile} onPostCreated={handlePostCreated} />
+            <CreatePost
+              userdata={currentUserProfile}
+              onPostCreated={handlePostCreated}
+            />
           </div>
           {postsIsLoading ? (
             // <div>Loading...</div>
@@ -216,7 +227,7 @@ export default function PersonalProfilePage({ params }) {
               <Post
                 key={post.id}
                 postdata={post}
-                userdata={profile}
+                userdata={currentUserProfile}
                 condition={false}
                 edit={isYourPage ? true : false}
                 onEditPost={handleEditPost}

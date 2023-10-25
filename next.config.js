@@ -26,6 +26,12 @@ module.exports = {
           port: '',
           pathname: '/**',
         },
+        {
+          protocol: 'http',
+          hostname: '3.219.184.226',
+          port: '3000',
+          pathname: '/**',
+        },
       ],
     },
     babel: {
