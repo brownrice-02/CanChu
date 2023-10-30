@@ -6,7 +6,7 @@ import { Skeleton } from "@material-ui/lab";
 import { useSelector } from "react-redux";
 
 const CreatePost = ({ onPostCreated }) => {
-  const userdata = useSelector((state) => state.profile);
+  const userdata = useSelector((state) => state.profile.myProfile);
 
   const [context, setContext] = useState("");
 

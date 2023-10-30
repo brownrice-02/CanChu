@@ -3,7 +3,8 @@ import styles from "../../page.module.css";
 import { Skeleton } from "@material-ui/lab";
 import { CircularProgress } from "@material-ui/core";
 import { useState, useEffect } from "react";
-import useProfile from "../../../../components/Hooks/useProfile";
+import useMyProfile from "../../../../components/Hooks/useMyProfile";
+import useUserProfile from "../../../../components/Hooks/useUserProfile";
 import usePosts from "../../../../components/Hooks/usePosts";
 import usePostCreation from "../../../../components/Hooks/usePostCreation";
 import useEditPost from "../../../../components/Hooks/useEditPost";
@@ -23,16 +24,13 @@ export default function PersonalProfilePage({ params }) {
 
   // Profile
   // 取得使用者的個人資訊
-  useProfile(access_token, user_id);
-  const userProfile = useSelector((state) => state.profile.profile);
-  // const { profile, friendship, handleGetProfile } = useProfile(
-  //   access_token,
-  //   current_user_id
-  // );
+  useMyProfile(access_token, user_id);
+  const myProfile = useSelector((state) => state.profile.myProfile);
+  // console.log("My Profile: ", myProfile);
   // 取得對應 id 的個人資訊
-  useProfile(access_token, current_user_id);
-  const { handleGetProfile } = useProfile(access_token, current_user_id);
-  const currentUserProfile = useSelector((state) => state.profile.profile);
+  const { handleGetProfile } = useUserProfile(access_token, current_user_id);
+  const currentUserProfile = useSelector((state) => state.profile.userProfile);
+  // console.log("User Profile: ", currentUserProfile);
 
   // Post
   const {
@@ -149,13 +147,13 @@ export default function PersonalProfilePage({ params }) {
   return (
     <main className={styles.container}>
       <div className={styles.TopNav}>
-        {userProfile ? <TopNav /> : <TopNav userdata={userProfile} />}
+        {myProfile ? <TopNav /> : <TopNav userdata={myProfile} />}
         <div>
-          {!userProfile ? (
+          {!myProfile ? (
             <PersonalInfo />
           ) : (
             <PersonalInfo
-              userdata={userProfile}
+              userdata={myProfile}
               handleImageUpload={handleImageUpload}
               isYourPage={isYourPage}
             />
@@ -187,11 +185,15 @@ export default function PersonalProfilePage({ params }) {
         </div>
         <div className={styles.postFlow}>
           <div>
-            <CreatePost
-              userdata={currentUserProfile}
-              onPostCreated={handlePostCreated}
-            />
+            {isYourPage && (
+              <CreatePost
+                userdata={currentUserProfile}
+                onPostCreated={handlePostCreated}
+              />
+            )}
           </div>
+          {/*  posts.length === 0 && <h1>目前沒有貼文</h1> */}
+
           {postsIsLoading ? (
             // <div>Loading...</div>
             <div
@@ -207,7 +209,7 @@ export default function PersonalProfilePage({ params }) {
                   <Post
                     key={post.id}
                     postdata={post}
-                    userdata={profile}
+                    userdata={myProfile}
                     condition={false}
                     edit={true}
                     onLikeButtonClick={handleLikeButtonClick}

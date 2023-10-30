@@ -2,9 +2,9 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axiosInstance from "../../src/app/api/axiosInstance";
-import { setProfileData } from "../../src/redux/store/profileSlice";
+import { setMyProfileData } from "../../src/redux/store/profileSlice";
 
-const useProfile = (access_token, user_id) => {
+const useMyProfile = (access_token, user_id) => {
   const dispatch = useDispatch();
 
   const handleGetProfile = async () => {
@@ -13,10 +13,11 @@ const useProfile = (access_token, user_id) => {
       const get_profile = await axiosInstance.get(`/users/${user_id}/profile`);
       if (get_profile.status === 200) {
         const userData = get_profile.data.data.user;
-        dispatch(setProfileData({ profile: userData }));
+        dispatch(setMyProfileData({ myProfile: userData }));
+        // console.log("My Profile API: ", userData);
       }
     } catch (get_error) {
-      console.log("GET Profile失敗");
+      console.log("GET My Profile失敗");
       alert("Error: " + get_error.message);
     }
   };
@@ -29,4 +30,4 @@ const useProfile = (access_token, user_id) => {
   return { handleGetProfile };
 };
 
-export default useProfile;
+export default useMyProfile;

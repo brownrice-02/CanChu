@@ -5,10 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import AvatarBtn from "../BtnCmps/AvatarBtn";
 import styles from "../../styles/Post.module.scss";
+import { useSelector } from "react-redux";
 
 const Post = ({
   postdata,
-  userdata,
   condition,
   edit,
   onEditPost,
@@ -20,6 +20,7 @@ const Post = ({
   const [liked, setLiked] = useState(postdata ? postdata.is_liked : false); // 臨時 liked 狀態
   const [context, setContext] = useState(postdata ? postdata.context : ""); // 編輯貼文
   const [content, setContent] = useState(""); // 留言
+  const userdata = useSelector((state) => state.profile.myProfile);
 
   // 貼文編輯模式
   const handleEditModeClick = () => {

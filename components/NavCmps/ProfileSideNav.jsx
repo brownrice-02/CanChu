@@ -13,7 +13,7 @@ const ProfileSideNav = ({
   handleGetProfile,
   // a
 }) => {
-  const userdata = useSelector((state) => state.profile.profile);
+  const userdata = useSelector((state) => state.profile.userProfile);
   const { access_token } = usePageAuthorization();
   const [isLoginMode, setLoginMode] = useState(true); // true 為一般模式，這是指編輯貼文的，抱歉我之後會改名
   const [introduction, setIntroduction] = useState("");

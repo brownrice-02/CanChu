@@ -6,8 +6,8 @@ import styles from "../styles/PersonalInfo.module.scss";
 import { useSelector } from "react-redux";
 
 const PersonalInfo = ({ handleImageUpload, isYourPage }) => {
-  const userdata = useSelector((state) => state.profile.profile);
-  console.log("PersonalInfo", isYourPage);
+  const userdata = useSelector((state) => state.profile.userProfile);
+  // console.log("PersonalInfo", isYourPage);
   return (
     <div className={styles.personalInfo}>
       <div className={styles.info}>

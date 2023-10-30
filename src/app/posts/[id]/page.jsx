@@ -1,7 +1,7 @@
 "use client";
 import usePageAuthorization from "../../../../components/AuthCmps/usePageAuthorization";
 import { useState, useEffect } from "react";
-import useProfile from "../../../../components/Hooks/useProfile";
+import useProfile from "../../../../components/Hooks/useMyProfile";
 import styles from "../../page.module.css";
 import axiosInstance from "../../api/axiosInstance";
 import TopNav from "../../../../components/NavCmps/TopNav";

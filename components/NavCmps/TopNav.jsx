@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 
 const TopNav = () => {
   const router = useRouter();
-  const userdata = useSelector((state) => state.profile.profile);
+  const userdata = useSelector((state) => state.profile.myProfile);
   // console.log("TopNav: ", userdata);
 
   const [isDivVisible, setIsDivVisible] = useState(false);
@@ -49,7 +49,7 @@ const TopNav = () => {
             //   link={`/users/${userdata.id}`}
             // />
             <Image
-              src={userdata.profile}
+              src={userdata.picture}
               alt="user"
               fill={true}
               style={{ borderRadius: "50%" }}

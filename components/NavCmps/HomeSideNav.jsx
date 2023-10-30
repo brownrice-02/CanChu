@@ -15,8 +15,8 @@ export default function HomeSideNav({
   handleGetPendingList,
 }) {
   const { access_token } = usePageAuthorization();
-  const userdata = useSelector((state) => state.profile.profile);
-  console.log(userdata);
+  const userdata = useSelector((state) => state.profile.myProfile);
+  // console.log("HomeSideNav: ", userdata);
 
   // 確認好友邀請
   const handleFriendRequestAgree = (pendingId) => {
@@ -110,11 +110,21 @@ export default function HomeSideNav({
               pendingList.map((pending) => (
                 <li key={pending.id} className={styles.navItem}>
                   <div className={styles.avatarContainer}>
-                    <AvatarBtn
-                      src={pending.picture}
-                      alt={pending.name}
-                      link={`/users/${pending.id}`}
-                    />
+                    {pending.picture ? (
+                      <AvatarBtn
+                        src={pending.picture}
+                        alt={pending.name}
+                        link={`/users/${pending.id}`}
+                      />
+                    ) : (
+                      <Image
+                        src="/avatar.svg"
+                        alt="user"
+                        fill={true}
+                        style={{ borderRadius: "50%" }}
+                        objectFit="cover"
+                      />
+                    )}
                   </div>
                   <a href={`/users/${pending.id}`}>{pending.name}</a>
                   <div className={styles.pendingBtn}>

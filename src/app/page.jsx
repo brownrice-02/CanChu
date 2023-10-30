@@ -1,7 +1,7 @@
 "use client";
 import usePageAuthorization from "../../components/AuthCmps/usePageAuthorization";
 import { useState, useEffect } from "react";
-import useProfile from "../../components/Hooks/useProfile";
+import useProfile from "../../components/Hooks/useMyProfile";
 import usePosts from "../../components/Hooks/usePosts";
 import usePostCreation from "../../components/Hooks/usePostCreation";
 import useInfiniteScroll from "../../components/Hooks/useInfiniteScroll";
@@ -19,7 +19,7 @@ export default function HomePage() {
   const { user_id, access_token } = usePageAuthorization();
   useProfile(access_token, user_id);
   // 使用 useSelector 從 Redux 中獲取個人資料
-  const profileData = useSelector((state) => state.profile.profile);
+  const profileData = useSelector((state) => state.profile.myProfile);
   // console.log("Redux 出 profile: ", profileData);
 
   // 取得貼文
@@ -112,8 +112,8 @@ export default function HomePage() {
         }
       })
       .catch((pendingList_error) => {
-        console.log("取得pending列表失敗");
-        alert("Error: " + pendingList_error.message);
+        // console.log("取得pending列表失敗");
+        // alert("Error: " + pendingList_error.message);
       });
   };
   useEffect(() => {
