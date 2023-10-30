@@ -4,10 +4,19 @@ import AvatarBtnwithHover from "./BtnCmps/AvatarBtnwithHover";
 import { Skeleton } from "@material-ui/lab";
 import styles from "../styles/PersonalInfo.module.scss";
 import { useSelector } from "react-redux";
+import useUploadAvatar from "./Hooks/user/useUploadAvatar";
 
-const PersonalInfo = ({ handleImageUpload, isYourPage }) => {
+const PersonalInfo = ({ isYourPage }) => {
   const userdata = useSelector((state) => state.profile.userProfile);
-  // console.log("PersonalInfo", isYourPage);
+
+  const { uploadAvatar } = useUploadAvatar();
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      uploadAvatar(file);
+    }
+  };
+
   return (
     <div className={styles.personalInfo}>
       <div className={styles.info}>

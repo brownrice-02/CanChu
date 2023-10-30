@@ -1,8 +1,8 @@
 // useProfile.js
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import axiosInstance from "../../src/app/api/axiosInstance";
-import { setUserProfileData } from "../../src/redux/store/profileSlice";
+import axiosInstance from "../../../src/app/api/axiosInstance";
+import { setUserProfileData } from "../../../src/redux/store/profileSlice";
 
 const useUserProfile = (access_token, user_id) => {
   const dispatch = useDispatch();

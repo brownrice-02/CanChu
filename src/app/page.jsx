@@ -1,7 +1,7 @@
 "use client";
 import usePageAuthorization from "../../components/AuthCmps/usePageAuthorization";
 import { useState, useEffect } from "react";
-import useProfile from "../../components/Hooks/useMyProfile";
+import useProfile from "../../components/Hooks/user/useMyProfile";
 import usePosts from "../../components/Hooks/usePosts";
 import usePostCreation from "../../components/Hooks/usePostCreation";
 import useInfiniteScroll from "../../components/Hooks/useInfiniteScroll";

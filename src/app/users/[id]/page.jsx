@@ -3,8 +3,8 @@ import styles from "../../page.module.css";
 import { Skeleton } from "@material-ui/lab";
 import { CircularProgress } from "@material-ui/core";
 import { useState, useEffect } from "react";
-import useMyProfile from "../../../../components/Hooks/useMyProfile";
-import useUserProfile from "../../../../components/Hooks/useUserProfile";
+import useMyProfile from "../../../../components/Hooks/user/useMyProfile";
+import useUserProfile from "../../../../components/Hooks/user/useUserProfile";
 import usePosts from "../../../../components/Hooks/usePosts";
 import usePostCreation from "../../../../components/Hooks/usePostCreation";
 import useEditPost from "../../../../components/Hooks/useEditPost";
@@ -63,30 +63,6 @@ export default function PersonalProfilePage({ params }) {
       })
       .catch((put_error) => {
         console.log("PUT失敗");
-        alert("Error: " + put_error.message);
-      });
-  };
-
-  // 用來處理上傳圖片的函式
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0]; // 取得使用者選擇的檔案
-    console.log("上傳的圖片:", file);
-    // 建立 FormData 物件
-    const formData = new FormData();
-    formData.append("picture", file); // 在這裡 "picture" 是伺服器端接收圖片的欄位名稱
-    // 上傳圖片
-    axiosInstance.defaults.headers.common["Authorization"] = access_token;
-    axiosInstance.defaults.headers.post["Content-Type"] = "application/json";
-    axiosInstance
-      .put("/users/picture", formData)
-      .then((put_picture) => {
-        if (put_picture.status === 200) {
-          console.log("PUT Picture成功");
-          handleGetProfile();
-        }
-      })
-      .catch((put_error) => {
-        console.log("PUT Picture失敗");
         alert("Error: " + put_error.message);
       });
   };
@@ -154,7 +130,7 @@ export default function PersonalProfilePage({ params }) {
           ) : (
             <PersonalInfo
               userdata={myProfile}
-              handleImageUpload={handleImageUpload}
+              // handleImageUpload={handleImageUpload}
               isYourPage={isYourPage}
             />
           )}
