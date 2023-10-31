@@ -49,24 +49,6 @@ export default function PersonalProfilePage({ params }) {
     }
   }, [current_user_id, user_id]);
 
-  // 用戶的 profile 更新 API
-  const handleUpdateProfile = (UpdatedProfileData) => {
-    axiosInstance.defaults.headers.post["Content-Type"] = "application/json";
-    axiosInstance
-      .put("/users/profile", UpdatedProfileData)
-      .then((put_response) => {
-        if (put_response.status === 200) {
-          console.log("PUT成功");
-          // PUT 請求成功後，重新取得用戶的個人資料
-          handleGetProfile();
-        }
-      })
-      .catch((put_error) => {
-        console.log("PUT失敗");
-        alert("Error: " + put_error.message);
-      });
-  };
-
   // 「喜歡」按鈕點擊事件
   const handleLikeButtonClick = (postId) => {
     // 找出該貼文物件
@@ -151,7 +133,7 @@ export default function PersonalProfilePage({ params }) {
             ) : (
               <ProfileSideNav
                 userdata={currentUserProfile}
-                onProfileUpdated={handleUpdateProfile}
+                // onProfileUpdated={handleUpdateProfile}
                 isYourPage={isYourPage}
                 friendship={currentUserProfile.friendship}
                 handleGetProfile={handleGetProfile}

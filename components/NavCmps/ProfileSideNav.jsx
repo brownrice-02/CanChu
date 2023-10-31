@@ -5,12 +5,13 @@ import axiosInstance from "../../src/app/api/axiosInstance";
 import styles from "../../styles/ProfileSideNav.module.scss";
 import { Skeleton } from "@material-ui/lab";
 import { useSelector } from "react-redux";
+import useUpdateProfile from "../Hooks/user/useUpdateProfile";
 
 const ProfileSideNav = ({
-  onProfileUpdated,
+  // onProfileUpdated,
   isYourPage,
   friendship,
-  handleGetProfile,
+  // handleGetProfile,
   // a
 }) => {
   const userdata = useSelector((state) => state.profile.userProfile);
@@ -18,6 +19,7 @@ const ProfileSideNav = ({
   const [isLoginMode, setLoginMode] = useState(true); // true 為一般模式，這是指編輯貼文的，抱歉我之後會改名
   const [introduction, setIntroduction] = useState("");
   const [tags, setTags] = useState("");
+  const { updateProfile } = useUpdateProfile();
 
   // 一般與修改模式切換用
   const handleSwitchMode = () => {
@@ -31,14 +33,14 @@ const ProfileSideNav = ({
     e.preventDefault();
 
     // 會送到後端的
-    const UpdatedProfileData = {
-      name: userdata.name,
+    const updatedProfileData = {
+      // name: userdata.name,
+      ...userdata, // 複製原始資料
       introduction,
       tags,
     };
 
-    // 呼叫註冊回調函式將使用者資料傳遞給父元件 (page.js)
-    onProfileUpdated(UpdatedProfileData);
+    updateProfile(updatedProfileData);
   };
 
   // 送出好友邀請
@@ -49,7 +51,7 @@ const ProfileSideNav = ({
       .then((post_friend_request) => {
         if (post_friend_request.status === 200) {
           console.log("送出好友邀請成功");
-          handleGetProfile();
+          // handleGetProfile();
         }
       })
       .catch((post_error) => {
@@ -67,7 +69,7 @@ const ProfileSideNav = ({
         if (post_friendship_agree.status === 200) {
           console.log("接受好友邀請成功");
           setProfileData(post_friendship_agree.data);
-          handleGetProfile();
+          // handleGetProfile();
         }
       })
       .catch((friendship_agree_error) => {
@@ -84,7 +86,7 @@ const ProfileSideNav = ({
       .then((delete_friendship_request) => {
         if (delete_friendship_request.status === 200) {
           console.log("刪除好友邀請成功");
-          handleGetProfile();
+          // handleGetProfile();
         }
       })
       .catch((delete_friendship_request_error) => {
