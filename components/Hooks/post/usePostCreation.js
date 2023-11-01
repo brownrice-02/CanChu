@@ -1,6 +1,6 @@
 // usePostCreation.js
 import { useState } from 'react';
-import axiosInstance from '../../src/app/api/axiosInstance';
+import axiosInstance from '../../../src/app/api/axiosInstance';
 
 const usePostCreation = (access_token, updatePosts) => {
   const [isLoading, setIsLoading] = useState(false);

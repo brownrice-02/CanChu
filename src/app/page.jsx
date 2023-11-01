@@ -2,8 +2,8 @@
 import usePageAuthorization from "../../components/AuthCmps/usePageAuthorization";
 import { useState, useEffect } from "react";
 import useProfile from "../../components/Hooks/user/useMyProfile";
-import usePosts from "../../components/Hooks/usePosts";
-import usePostCreation from "../../components/Hooks/usePostCreation";
+import usePosts from "../../components/Hooks/post/usePosts";
+import usePostCreation from "../../components/Hooks/post/usePostCreation";
 import useInfiniteScroll from "../../components/Hooks/useInfiniteScroll";
 import { Skeleton } from "@material-ui/lab";
 import { CircularProgress } from "@material-ui/core";
@@ -17,12 +17,13 @@ import { useSelector } from "react-redux";
 
 export default function HomePage() {
   const { user_id, access_token } = usePageAuthorization();
+
+  // GET myProfile
   useProfile(access_token, user_id);
-  // 使用 useSelector 從 Redux 中獲取個人資料
   const profileData = useSelector((state) => state.profile.myProfile);
   // console.log("Redux 出 profile: ", profileData);
 
-  // 取得貼文
+  // GET posts
   usePosts(access_token);
   const postsData = useSelector((state) => state.posts.posts);
   const next_cursor = useSelector((state) => state.posts.next_cursor);
@@ -31,52 +32,6 @@ export default function HomePage() {
   const { handlePostCreated } = usePostCreation(access_token, updatePosts); // 創建貼文
   const [friendList, setfriendList] = useState(null);
   const [pendingList, setPendingList] = useState(null);
-
-  // 「喜歡」按鈕點擊事件
-  const handleLikeButtonClick = (postId) => {
-    const post = posts.find((post) => post.id === postId); // 找出該貼文物件
-    if (!post) return;
-
-    // 暫時切換「喜歡」狀態，樂觀式 UI 更新
-    post.is_liked = !post.is_liked;
-    // setPostData([...posts]); // 建立副本的方式來更新
-
-    if (post.is_liked) {
-      // POST Like
-      axiosInstance.defaults.headers.common["Authorization"] = access_token;
-      axiosInstance
-        .post(`/posts/${postId}/like`)
-        .then((put_response) => {
-          if (put_response.status === 200) {
-            console.log(postId, "喜歡狀態更新成功");
-          }
-        })
-        .catch((put_error) => {
-          console.log(postId, "喜歡狀態更新失敗，回復臨時更新");
-          post.is_liked = !post.is_liked;
-          // setPostData([...postflowData]);
-          console.log(postflowData);
-          alert("Error: " + put_error.message);
-        });
-    } else {
-      // Delete Like
-      axiosInstance.defaults.headers.common["Authorization"] = access_token;
-      axiosInstance
-        .delete(`/posts/${postId}/like`)
-        .then((put_response) => {
-          if (put_response.status === 200) {
-            console.log(postId, "取消喜歡狀態成功");
-          }
-        })
-        .catch((put_error) => {
-          console.log(postId, "取消喜歡狀態失敗，回復臨時更新");
-          post.is_liked = !post.is_liked;
-          // setPostData([...postflowData]);
-          console.log(postflowData);
-          alert("Error: " + put_error.message);
-        });
-    }
-  };
 
   // 取得朋友列表
   const handleGetFriendList = () => {
@@ -169,7 +124,7 @@ export default function HomePage() {
                     userdata={profileData}
                     condition={false}
                     edit={false}
-                    onLikeButtonClick={handleLikeButtonClick}
+                    // onLikeButtonClick={handleLikeButtonClick}
                   />
                 ))}
               {/* Loading 圓圈圈 */}
@@ -191,7 +146,7 @@ export default function HomePage() {
                 userdata={profileData}
                 condition={false}
                 edit={false}
-                onLikeButtonClick={handleLikeButtonClick}
+                // onLikeButtonClick={handleLikeButtonClick}
               />
             ))
           )}

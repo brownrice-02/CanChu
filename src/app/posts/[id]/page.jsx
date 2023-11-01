@@ -11,6 +11,7 @@ export default function Page({ params }) {
   const { user_id, access_token } = usePageAuthorization();
   const { profile } = useProfile(access_token, user_id);
   const [postflowData, setPostData] = useState([]);
+  // console.log("postflowData", postflowData);
   const id = params.id;
 
   // GET Post
@@ -35,50 +36,6 @@ export default function Page({ params }) {
   useEffect(() => {
     handleGetPost();
   }, []);
-
-  // 「喜歡」按鈕點擊事件
-  const handleLikeButtonClick = (postId) => {
-    // 找出該貼文物件
-    // const post = postflowData.find((post) => post.id === postId);
-    const post = postflowData;
-    if (!post) return;
-
-    post.is_liked = !post.is_liked; // 暫時切換「喜歡」狀態，樂觀式 UI 更新
-
-    if (post.is_liked) {
-      // POST Like
-      axiosInstance.defaults.headers.common["Authorization"] = access_token;
-      axiosInstance
-        .post(`/posts/${postId}/like`)
-        .then((put_response) => {
-          if (put_response.status === 200) {
-            console.log(postId, "喜歡狀態更新成功");
-          }
-        })
-        .catch((put_error) => {
-          console.log(postId, "喜歡狀態更新失敗，回復臨時更新");
-          post.is_liked = !post.is_liked;
-          setPostData([...postflowData]);
-          // console.log(postflowData);
-          alert("Error: " + put_error.message);
-        });
-    } else {
-      // Delete Like
-      axiosInstance.defaults.headers.common["Authorization"] = access_token;
-      axiosInstance
-        .delete(`/posts/${postId}/like`)
-        .then((put_response) => {
-          if (put_response.status === 200) {
-            console.log(postId, "取消喜歡狀態成功");
-          }
-        })
-        .catch((put_error) => {
-          console.log(postId, "取消喜歡狀態失敗，回復臨時更新");
-          post.is_liked = !post.is_liked;
-          alert("Error: " + put_error.message);
-        });
-    }
-  };
 
   // Post Create Comment API
   const handleCreateComment = (commentData) => {
@@ -115,7 +72,7 @@ export default function Page({ params }) {
               userdata={profile}
               condition={true}
               edit={false}
-              onLikeButtonClick={handleLikeButtonClick}
+              // onLikeButtonClick={handleLikeButtonClick}
               onCreateComment={handleCreateComment}
             />
           ) : (

@@ -5,9 +5,9 @@ import { CircularProgress } from "@material-ui/core";
 import { useState, useEffect } from "react";
 import useMyProfile from "../../../../components/Hooks/user/useMyProfile";
 import useUserProfile from "../../../../components/Hooks/user/useUserProfile";
-import usePosts from "../../../../components/Hooks/usePosts";
-import usePostCreation from "../../../../components/Hooks/usePostCreation";
-import useEditPost from "../../../../components/Hooks/useEditPost";
+import usePosts from "../../../../components/Hooks/post/usePosts";
+import usePostCreation from "../../../../components/Hooks/post/usePostCreation";
+import useEditPost from "../../../../components/Hooks/post/useEditPost";
 import useInfiniteScroll from "../../../../components/Hooks/useInfiniteScroll";
 import axiosInstance from "../../api/axiosInstance";
 import usePageAuthorization from "../../../../components/AuthCmps/usePageAuthorization";
@@ -48,53 +48,6 @@ export default function PersonalProfilePage({ params }) {
       setIsYourPage(user_id === current_user_id); // 解決 id 一開始會是 undefined
     }
   }, [current_user_id, user_id]);
-
-  // 「喜歡」按鈕點擊事件
-  const handleLikeButtonClick = (postId) => {
-    // 找出該貼文物件
-    const post = posts.find((post) => post.id === postId);
-    if (!post) return;
-
-    // 暫時切換「喜歡」狀態，樂觀式 UI 更新
-    post.is_liked = !post.is_liked;
-    updatePosts(); // 建立副本的方式來更新
-
-    if (post.is_liked) {
-      // POST Like
-      axiosInstance.defaults.headers.common["Authorization"] = access_token;
-      axiosInstance
-        .post(`/posts/${postId}/like`)
-        .then((put_response) => {
-          if (put_response.status === 200) {
-            console.log(postId, "喜歡狀態更新成功");
-          }
-        })
-        .catch((put_error) => {
-          console.log(postId, "喜歡狀態更新失敗，回復臨時更新");
-          post.is_liked = !post.is_liked;
-          updatePosts();
-          console.log(posts);
-          alert("Error: " + put_error.message);
-        });
-    } else {
-      // Delete Like
-      axiosInstance.defaults.headers.common["Authorization"] = access_token;
-      axiosInstance
-        .delete(`/posts/${postId}/like`)
-        .then((put_response) => {
-          if (put_response.status === 200) {
-            console.log(postId, "取消喜歡狀態成功");
-          }
-        })
-        .catch((put_error) => {
-          console.log(postId, "取消喜歡狀態失敗，回復臨時更新");
-          post.is_liked = !post.is_liked;
-          updatePosts();
-          console.log(posts);
-          alert("Error: " + put_error.message);
-        });
-    }
-  };
 
   // Scroll and Trigger
   const handleLoadMorePosts = () => {
@@ -191,7 +144,7 @@ export default function PersonalProfilePage({ params }) {
                 condition={false}
                 edit={isYourPage ? true : false}
                 onEditPost={handleEditPost}
-                onLikeButtonClick={handleLikeButtonClick}
+                // onLikeButtonClick={handleLikeButtonClick}
               />
             ))
           )}

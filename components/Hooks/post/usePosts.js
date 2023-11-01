@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import axiosInstance from "../../src/app/api/axiosInstance";
+import axiosInstance from "../../../src/app/api/axiosInstance";
 import { useDispatch } from 'react-redux';
-import { setPostsData } from '../../src/redux/store/postsSlice';
+import { setPostsData } from '../../../src/redux/store/postsSlice';
 
 const usePosts = (access_token, user_id = null) => {
   const [posts, setPosts] = useState([]);

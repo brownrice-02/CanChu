@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axiosInstance from "../../src/app/api/axiosInstance";
+import axiosInstance from "../../../src/app/api/axiosInstance";
 
 const useEditPost = (access_token, updatePosts) => {
   const [posts, setPosts] = useState([]);

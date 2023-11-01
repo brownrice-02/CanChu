@@ -6,21 +6,31 @@ import Image from "next/image";
 import AvatarBtn from "../BtnCmps/AvatarBtn";
 import styles from "../../styles/Post.module.scss";
 import { useSelector } from "react-redux";
+import usePageAuthorization from "../AuthCmps/usePageAuthorization";
+import useLikeAPost from "../Hooks/post/useLikeAPost";
+import useUnlikeAPost from "../Hooks/post/useUnlikeAPost";
 
 const Post = ({
   postdata,
   condition,
   edit,
   onEditPost,
-  onLikeButtonClick,
+  // onLikeButtonClick,
   onCreateComment,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isedit, setIsEdit] = useState(false);
   const [liked, setLiked] = useState(postdata ? postdata.is_liked : false); // 臨時 liked 狀態
+  const [likeCount, setLikeCount] = useState(
+    postdata ? postdata.like_count : 0
+  );
   const [context, setContext] = useState(postdata ? postdata.context : ""); // 編輯貼文
   const [content, setContent] = useState(""); // 留言
   const userdata = useSelector((state) => state.profile.myProfile);
+
+  const { access_token } = usePageAuthorization();
+  const { likePost } = useLikeAPost(access_token);
+  const { unlikePost } = useUnlikeAPost(access_token);
 
   // 貼文編輯模式
   const handleEditModeClick = () => {
@@ -38,7 +48,15 @@ const Post = ({
   // 處理「喜歡」按鈕點擊事件
   const handleLikeClick = () => {
     setLiked(!liked); // 暫時切換「喜歡」狀態，樂觀式 UI 更新
-    onLikeButtonClick(postdata.id);
+    // console.log("Post ID: ", postdata.id);
+    if (liked) {
+      setLikeCount(likeCount - 1);
+      unlikePost(postdata.id);
+    } else {
+      setLikeCount(likeCount + 1);
+      likePost(postdata.id);
+    }
+    // onLikeButtonClick(postdata.id);
   };
 
   const handleCommentSubmit = (e) => {
@@ -175,7 +193,8 @@ const Post = ({
         <button className={styles.likeCount}>
           {postdata && (
             <Link href={`/posts/${postdata.id}`}>
-              <p>{postdata.like_count}人喜歡這則貼文</p>
+              {/* <p>{postdata.like_count}人喜歡這則貼文</p> */}
+              <p>{likeCount}人喜歡這則貼文</p>
             </Link>
           )}
         </button>
