@@ -18,7 +18,7 @@ const useLikeAPost = (access_token) => {
       });
 
       if (response.status === 200) {
-        console.log(postId, "喜歡狀態更新成功");
+        // console.log(postId, "喜歡狀態更新成功");
       }
     } catch (error) {
       console.log(postId, "喜歡狀態更新失敗，回復臨時更新");

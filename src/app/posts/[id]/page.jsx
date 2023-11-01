@@ -6,36 +6,17 @@ import styles from "../../page.module.css";
 import axiosInstance from "../../api/axiosInstance";
 import TopNav from "../../../../components/NavCmps/TopNav";
 import Post from "../../../../components/PostCmps/Post";
+import usePost from "../../../../components/Hooks/post/usePost";
 
 export default function Page({ params }) {
   const { user_id, access_token } = usePageAuthorization();
   const { profile } = useProfile(access_token, user_id);
-  const [postflowData, setPostData] = useState([]);
+  // const [postflowData, setPostData] = useState([]);
   // console.log("postflowData", postflowData);
   const id = params.id;
 
   // GET Post
-  const handleGetPost = () => {
-    axiosInstance.defaults.headers.common["Authorization"] = access_token;
-    axiosInstance
-      .get(`/posts/${id}`)
-      .then((get_response) => {
-        if (get_response.status === 200) {
-          // console.log("取得貼文成功");
-          setPostData(get_response.data.data.post);
-          console.log("詳細貼文", get_response.data.data.post);
-        }
-      })
-      .catch((get_error) => {
-        // GET 請求失敗
-        // console.log("取得貼文失敗");
-        alert("Error: " + get_error.message);
-      });
-  };
-  // 只在頁面載入時執行一次 GET
-  useEffect(() => {
-    handleGetPost();
-  }, []);
+  const { postData } = usePost(id, access_token);
 
   // Post Create Comment API
   const handleCreateComment = (commentData) => {
@@ -66,17 +47,15 @@ export default function Page({ params }) {
         style={{ marginTop: "24px", justifyContent: "center" }}
       >
         <div className={styles.postFlow}>
-          {postflowData.comments ? ( // 處理有時候還沒獲得評論
+          {postData && (
             <Post
-              postdata={postflowData}
+              postdata={postData}
               userdata={profile}
               condition={true}
               edit={false}
               // onLikeButtonClick={handleLikeButtonClick}
               onCreateComment={handleCreateComment}
             />
-          ) : (
-            <Post />
           )}
         </div>
       </div>

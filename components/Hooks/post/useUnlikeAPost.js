@@ -18,7 +18,7 @@ const useUnlikeAPost = (access_token) => {
       });
 
       if (response.status === 200) {
-        console.log(postId, "取消喜歡狀態成功");
+        // console.log(postId, "取消喜歡狀態成功");
       }
     } catch (error) {
       console.log(postId, "取消喜歡狀態失敗，回復臨時更新");

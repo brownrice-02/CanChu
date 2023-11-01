@@ -208,7 +208,7 @@ const Post = ({
       </div>
 
       {/* 首頁會隱藏朋友留言 */}
-      {condition && postdata.comments !== null ? (
+      {condition && postdata.comments !== undefined ? (
         <div className={styles.commentsFromFriends}>
           {postdata.comments.map((comment, index) => (
             <div className={styles.cmt} key={index}>
