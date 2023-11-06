@@ -123,7 +123,7 @@ export default function PersonalProfilePage({ params }) {
                     userdata={myProfile}
                     condition={false}
                     edit={true}
-                    onLikeButtonClick={handleLikeButtonClick}
+                    // onLikeButtonClick={handleLikeButtonClick}
                   />
                 ))}
               <CircularProgress

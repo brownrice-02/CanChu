@@ -12,11 +12,11 @@ const usePostCreation = (access_token, updatePosts) => {
     try {
       const post_response = await axiosInstance.post('/posts/', contextData);
       if (post_response.status === 200) {
-        console.log('POST成功');
+        // console.log('創建貼文成功');
         updatePosts();
       }
     } catch (post_error) {
-      console.log('連接失敗2');
+      // console.log('連接失敗2');
       alert('Error: ' + post_error.message);
     } finally {
       setIsLoading(false);
