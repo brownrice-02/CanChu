@@ -1,6 +1,6 @@
 // useProfile.js
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import axiosInstance from "../../../src/app/api/axiosInstance";
 import { setMyProfileData } from "../../../src/redux/store/profileSlice";
 
