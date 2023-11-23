@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  position: relative;
   width: 100%;
   min-height: 32vw;
   flex-direction: column;
@@ -10,8 +11,10 @@
 
   .editButtonContainer {
     position: absolute;
-    margin-top: 10px;
-    left: 87vw;
+    right: 1rem;
+    top: 1rem;
+    // margin-top: 10px;
+    // left: 87vw;
     width: 1.5rem;
     height: 1.5rem;
   }

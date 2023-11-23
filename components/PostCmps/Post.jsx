@@ -18,7 +18,7 @@ const Post = ({
   // onLikeButtonClick,
   onCreateComment,
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(true);
   const [isedit, setIsEdit] = useState(false);
   const [liked, setLiked] = useState(postdata ? postdata.is_liked : false); // 臨時 liked 狀態
   const [likeCount, setLikeCount] = useState(
