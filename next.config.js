@@ -35,7 +35,7 @@ module.exports = {
         {
           protocol: 'https',
           hostname: '3.219.184.226',
-          port: '3000',
+          port: '',
           pathname: '/**',
         },
       ],
